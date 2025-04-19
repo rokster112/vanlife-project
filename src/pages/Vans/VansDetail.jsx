@@ -23,15 +23,7 @@ export default function VansDetail() {
             alt={`Van with a name of ${van.name}`}
           />
         </div>
-        <p className="van-card__type" style={{
-    backgroundColor:
-      van.type === "simple"
-        ? "#E17654"
-        : van.type === "luxury"
-          ? "#161616"
-          : "#115E59",
-    color: "white",
-  }}>
+        <p className={`van-card__type ${van.type}`}>
           {van.type[0].toUpperCase() + van.type.slice(1, van.type.length)}
         </p>
           <h1>{van.name}</h1>

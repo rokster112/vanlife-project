@@ -15,7 +15,6 @@ export default function Vans() {
     }, [])
 
     const displayVans = vanFilterArr.map(van => {
-        const typeStyle = {backgroundColor: van.type === 'simple' ? '#E17654' : van.type === 'luxury' ? '#161616' : '#115E59', color: 'white'}
         return (
             <div className="van-card" key={van.id}>
                 <Link to={`${van.id}`}><div className="van-card__image-container">
@@ -25,7 +24,7 @@ export default function Vans() {
                     <h4>{van.name}</h4>
                     <p><span>${van.price}</span> <br/> /day</p>
                 </div>
-                <p className="van-card__type" style={typeStyle}>{van.type[0].toUpperCase() + van.type.slice(1, van.type.length)}</p>
+                <p className={`van-card__type ${van.type}`}>{van.type[0].toUpperCase() + van.type.slice(1, van.type.length)}</p>
                 </Link>
             </div>
         )

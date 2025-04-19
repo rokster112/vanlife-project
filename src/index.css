@@ -482,3 +482,18 @@ span.pricing-span {
 div.photos-container {
     background: white;
 }
+
+.simple {
+    background-color: #E17654;
+    color: white;
+}
+
+.luxury {
+    background-color: #161616;
+    color: white;
+}
+
+.rugged {
+    background-color: #115E59;
+    color: white;
+}
