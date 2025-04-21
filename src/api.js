@@ -16,7 +16,7 @@ import {
 } from "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBQPBtkfV70pg5gEU0of0EoM9QBARIu6xI",
+  apiKey: process.env.REACT_APP_APIKEY,
   authDomain: "vanlife-b4a5f.firebaseapp.com",
   projectId: "vanlife-b4a5f",
   storageBucket: "vanlife-b4a5f.firebasestorage.app",
@@ -39,7 +39,6 @@ export async function loginUser(email, password) {
     if (!foundUser.exists()) {
       throw new Error("User does not exist, check your credentials or register")
     }
-    console.log(foundUser.data())
     return foundUser.data()
   } catch (error) {
     throw new Error(error.message)
