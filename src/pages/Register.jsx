@@ -1,6 +1,7 @@
 import React from "react"
 import { handleChange } from "./helpers/HandleChange"
 import { createUser } from "../api"
+import { useNavigate } from "react-router-dom"
 
 export default function Register() {
   const [formData, setFormData] = React.useState({
@@ -8,6 +9,7 @@ export default function Register() {
     password: "",
   })
   const [err, setErr] = React.useState(null)
+  const navigate = useNavigate()
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -15,6 +17,7 @@ export default function Register() {
       try {
         const data = await createUser(formData.email, formData.password)
         console.log("User created!", data.email)
+        navigate("/login")
       } catch (error) {
         setErr(error)
         console.error(error.message)
