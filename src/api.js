@@ -29,6 +29,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 const auth = getAuth(app)
+const currentUser = auth.currentUser
 
 const vansCollectionRef = collection(db, "vans")
 const usersCollectionRef = collection(db, "users")
@@ -47,32 +48,11 @@ export async function loginUser(email, password) {
   }
 }
 
-// export async function getUser(formData) {
-//   try {
-//     const snapshot = await getDocs(usersCollectionRef)
-//     const users = snapshot.docs.map((doc) => ({
-//       ...doc.data(),
-//       id: doc.id,
-//     }))
-//     const foundUser = users.find(
-//       (user) =>
-//         user.email === formData.email && user.password === formData.password,
-//     )
-//     if (!foundUser) {
-//       throw new Error(
-//         "User not found, please check your credentials, or register",
-//       )
-//     }
-//     return foundUser
-//   } catch (error) {
-//     throw new Error(error.message)
-//   }
-// }
-
 //Registering a new user
 export async function createUser(email, password) {
   try {
     const user = await createUserWithEmailAndPassword(auth, email, password)
+    console.log("registered user =>", user)
     await setDoc(doc(db, "users", user.user.uid), {
       email: user.user.email,
       id: user.user.uid,
@@ -90,6 +70,7 @@ export async function getVans() {
     ...doc.data(),
     id: doc.id,
   }))
+  console.log("current user =>", currentUser)
   return vans
 }
 
@@ -100,57 +81,17 @@ export async function getVan(id) {
   return { ...snapshot.data(), id: snapshot.id }
 }
 
-export async function getHosts() {
-  const q = query()
-  const snapshot = await getDocs(usersCollectionRef)
-  const users = snapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-  }))
-  return users
+export async function getHostVans(id) {
+  try {
+    const vans = await getVans()
+    const userVans = vans.filter((item) => item.hostId === id)
+    if (userVans.length === 0) {
+      throw new Error("You have no vans in your list")
+    }
+    return userVans
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
-export async function getHostVans() {
-  const q = query()
-  const snapshot = await getDocs(usersCollectionRef)
-  const users = snapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-  }))
-  return users
-}
-
-export async function getHostVan(id) {
-  const docRef = doc(db, "users", id)
-  const snapshot = getDoc()
-  return { ...snapshot.data(), id: snapshot.id }
-}
-
-// export async function getHostVans(id) {
-//   const url = id ? `/api/host/vans/${id}` : "/api/host/vans"
-//   const res = await fetch(url)
-//   if (!res.ok) {
-//     throw {
-//       message: "Failed to fetch vans",
-//       status: res.status,
-//     }
-//   }
-//   const data = await res.json()
-//   return data.vans
-// }
-
-// export async function getUser(creds) {
-//   const res = await fetch("/api/login", {
-//     method: "post",
-//     body: JSON.stringify(creds),
-//   })
-//   if (!res.ok) {
-//     throw {
-//       message: "Failed to log user in",
-//       statusText: res.statusText,
-//       status: res.status,
-//     }
-//   }
-//   const data = await res.json()
-//   return data
-// }
+export async function getHostVan() {}

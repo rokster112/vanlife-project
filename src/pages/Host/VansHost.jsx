@@ -9,12 +9,13 @@ export default function VansHost() {
   const [loading, setLoading] = React.useState(false)
   const [err, setErr] = React.useState(null)
 
+  const user = JSON.parse(localStorage.getItem("user"))
+
   React.useEffect(() => {
     async function fetchData() {
       setLoading(true)
       try {
-        const users = await getHosts()
-        const data = await getHostVans()
+        const data = await getHostVans(user.id)
         setVans(data)
       } catch (error) {
         setErr(error)
@@ -24,9 +25,6 @@ export default function VansHost() {
     }
     fetchData()
   }, [])
-
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log("user data =>", user.id)
 
   const displayVans =
     vans.length > 0 &&
