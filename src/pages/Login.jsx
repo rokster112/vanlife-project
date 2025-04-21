@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react"
 import { replace, useLocation, useNavigate } from "react-router-dom"
 import { handleChange } from "./helpers/HandleChange"

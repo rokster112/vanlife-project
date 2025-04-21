@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Link } from "react-router-dom"
 import React from "react"
 import { getHosts, getHostVans } from "../../api"

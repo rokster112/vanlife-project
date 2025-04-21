@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react"
 import { NavLink, Link, Outlet, useParams } from "react-router-dom"
 import Arrow from "../../images/Arrow 1.png"

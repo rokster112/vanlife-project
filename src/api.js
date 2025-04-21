@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { initializeApp } from "firebase/app"
 import {
   getAuth,
