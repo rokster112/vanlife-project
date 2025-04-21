@@ -576,3 +576,9 @@ div.register-body {
   flex: 1;
   background-color: #fff7ed;
 }
+
+div.register-body form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
