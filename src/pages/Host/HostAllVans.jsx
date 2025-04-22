@@ -59,7 +59,7 @@ export default function HostAllVans() {
         <h3>Would you like to add more vans?</h3>
         <Link
           className="error-btn"
-          to={"/add"}
+          to={"/host/add"}
           state={{ userId: location.state?.userId }}
         >
           Add
