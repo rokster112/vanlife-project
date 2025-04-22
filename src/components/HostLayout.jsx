@@ -6,6 +6,9 @@ export default function HostLayout() {
     textDecoration: "underline",
     color: "black",
   }
+
+  const user = JSON.parse(localStorage.getItem("user"))
+
   return (
     <>
       <nav className="host-nav">
@@ -14,6 +17,7 @@ export default function HostLayout() {
           end
           className="nav-link"
           to={"/host"}
+          state={{ userId: user.id }}
         >
           Dashboard
         </NavLink>
@@ -21,6 +25,7 @@ export default function HostLayout() {
           style={({ isActive }) => (isActive ? activeStyle : null)}
           className="nav-link"
           to={"income"}
+          state={{ userId: user.id }}
         >
           Income
         </NavLink>
@@ -28,6 +33,7 @@ export default function HostLayout() {
           style={({ isActive }) => (isActive ? activeStyle : null)}
           className="nav-link"
           to={"reviews"}
+          state={{ userId: user.id }}
         >
           Reviews
         </NavLink>
@@ -35,8 +41,17 @@ export default function HostLayout() {
           style={({ isActive }) => (isActive ? activeStyle : null)}
           className="nav-link"
           to={"vans"}
+          state={{ userId: user.id }}
         >
           Vans
+        </NavLink>
+        <NavLink
+          style={({ isActive }) => (isActive ? activeStyle : null)}
+          className="nav-link"
+          to={"add"}
+          state={{ userId: user.id }}
+        >
+          Add Van
         </NavLink>
       </nav>
       <Outlet />

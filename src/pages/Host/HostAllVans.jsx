@@ -1,21 +1,20 @@
 /* eslint-disable */
 
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import React from "react"
 import { getHosts, getHostVans } from "../../api"
 
-export default function VansHost() {
+export default function HostAllVans() {
   const [vans, setVans] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [err, setErr] = React.useState(null)
-
-  const user = JSON.parse(localStorage.getItem("user"))
+  const location = useLocation()
 
   React.useEffect(() => {
     async function fetchData() {
       setLoading(true)
       try {
-        const data = await getHostVans(user.id)
+        const data = await getHostVans(location.state?.userId)
         setVans(data)
       } catch (error) {
         setErr(error)
@@ -29,7 +28,12 @@ export default function VansHost() {
   const displayVans =
     vans.length > 0 &&
     vans.map((van) => (
-      <Link className="host-vans__link" key={van.id} to={`${van.id}`}>
+      <Link
+        className="host-vans__link"
+        key={van.id}
+        to={`${van.id}`}
+        state={{ userId: location.state?.userId }}
+      >
         <img
           className="host-vans__image"
           src={van.imageUrl}
@@ -44,7 +48,24 @@ export default function VansHost() {
 
   if (loading) return <h1 className="loading">Loading...</h1>
 
-  if (err) return <h1>There has been an error: {err.message}</h1>
+  if (err)
+    return (
+      <div className="error-host__vans">
+        <h1>
+          {err.message === "You have no vans in your list"
+            ? err.message
+            : `There has been an error:  ${err?.message}`}
+        </h1>
+        <h3>Would you like to add more vans?</h3>
+        <Link
+          className="error-btn"
+          to={"/add"}
+          state={{ userId: location.state?.userId }}
+        >
+          Add
+        </Link>
+      </div>
+    )
 
   return (
     <div className="host-vans__container">

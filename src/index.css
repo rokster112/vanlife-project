@@ -258,6 +258,11 @@ div.vans-body > div:last-of-type {
   grid-template-columns: 1fr 1fr;
 }
 
+div.van-card {
+  width: 80%;
+  place-self: center;
+}
+
 div.van-card a {
   text-decoration: none;
   color: inherit;
@@ -463,13 +468,29 @@ div.van-single__top-details > p {
   font-size: clamp(1rem, 0.5rem + 1vw, 1.2rem);
 }
 
+@media (max-width: 924px) {
+  div.van-card {
+    width: 85%;
+  }
+}
+
 @media (max-width: 768px) {
+  div.van-card {
+    width: 90%;
+  }
+
   img.host-vans__image {
     width: 25%;
   }
 
   img.van-single__image {
     width: 35%;
+  }
+}
+
+@media (max-width: 560px) {
+  div.van-card {
+    width: 100%;
   }
 }
 
@@ -569,6 +590,29 @@ h3.error {
   font-weight: bold;
 }
 
+div.error-host__vans {
+  flex: 1;
+  background-color: #fff7ed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a.error-btn {
+  width: 50%;
+  background-color: #ff8c38;
+  height: 55px;
+  border-radius: 6px;
+  align-content: center;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+}
+
+/* Register styles */
+
 div.register-body {
   display: flex;
   flex-direction: column;
@@ -578,6 +622,23 @@ div.register-body {
 }
 
 div.register-body form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* HostAddVan styles */
+
+div.add-van__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-color: #fff7ed;
+}
+
+div.add-van__body form {
   display: flex;
   flex-direction: column;
   align-items: center;

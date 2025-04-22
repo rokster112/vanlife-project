@@ -10,11 +10,14 @@ export default function Login() {
     email: "",
     password: "",
   })
+
   const [user, setUser] = React.useState({})
   const [status, setStatus] = React.useState("idle")
   const [error, setError] = React.useState(null)
   const location = useLocation()
   const navigate = useNavigate()
+
+  console.log("use location", location)
 
   function handleSubmit(e) {
     e.preventDefault()

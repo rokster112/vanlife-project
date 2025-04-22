@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom"
 
-export default function VanSingleDetails() {
+export default function HostDetails() {
   const { van } = useOutletContext()
 
   return (

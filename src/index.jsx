@@ -11,15 +11,16 @@ import Dashboard from "./pages/Host/Dashboard"
 import Income from "./pages/Host/Income"
 import Reviews from "./pages/Host/Reviews"
 import HostLayout from "./components/HostLayout"
-import VansHost from "./pages/Host/VansHost"
-import VanSingleDetails from "./pages/Host/VanSingleDetails"
-import VanSinglePricing from "./pages/Host/VanSinglePricing"
-import VanSinglePhotos from "./pages/Host/VanSinglePhotos"
-import VanSingle from "./pages/Host/VanSingle"
+import HostAllVans from "./pages/Host/HostAllVans"
+import HostDetails from "./pages/Host/HostDetails"
+import HostPricing from "./pages/Host/HostPricing"
+import HostPhotos from "./pages/Host/HostPhotos"
+import HostVanInfo from "./pages/Host/HostVanInfo"
 import NotFound from "./pages/NotFound"
 import Login from "./pages/Login"
 import AuthRequired from "./components/AuthRequired"
 import Register from "./pages/Register"
+import HostAddVan from "./pages/Host/HostAddVan"
 
 function App() {
   return (
@@ -37,11 +38,12 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path="income" element={<Income />} />
               <Route path="reviews" element={<Reviews />} />
-              <Route path="vans" element={<VansHost />} />
-              <Route path="vans/:id" element={<VanSingle />}>
-                <Route index element={<VanSingleDetails />} />
-                <Route path="pricing" element={<VanSinglePricing />} />
-                <Route path="photos" element={<VanSinglePhotos />} />
+              <Route path="vans" element={<HostAllVans />} />
+              <Route path="add" element={<HostAddVan />} />
+              <Route path="vans/:id" element={<HostVanInfo />}>
+                <Route index element={<HostDetails />} />
+                <Route path="pricing" element={<HostPricing />} />
+                <Route path="photos" element={<HostPhotos />} />
               </Route>
             </Route>
           </Route>

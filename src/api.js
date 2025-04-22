@@ -15,7 +15,9 @@ import {
   query,
   where,
   setDoc,
+  addDoc,
 } from "firebase/firestore"
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
@@ -29,12 +31,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 const auth = getAuth(app)
-const currentUser = auth.currentUser
+const user = auth.currentUser
+const storage = getStorage(app)
 
 const vansCollectionRef = collection(db, "vans")
-const usersCollectionRef = collection(db, "users")
 
-// Logging in - checking if user exists
 export async function loginUser(email, password) {
   try {
     const user = await signInWithEmailAndPassword(auth, email, password)
@@ -64,34 +65,78 @@ export async function createUser(email, password) {
 }
 
 // Getting All vans for vans page
+
 export async function getVans() {
   const snapshot = await getDocs(vansCollectionRef)
   const vans = snapshot.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,
   }))
-  console.log("current user =>", currentUser)
   return vans
 }
 
-// Getting one van for vans page
+// Getting One van for vans page
 export async function getVan(id) {
   const docRef = doc(db, "vans", id)
   const snapshot = await getDoc(docRef)
   return { ...snapshot.data(), id: snapshot.id }
 }
 
+// Getting All host vans
 export async function getHostVans(id) {
+  const vans = await getVans()
+  const userVans = vans.filter((item) => item.hostId === id)
+
+  if (userVans.length === 0) {
+    throw new Error("You have no vans in your list")
+  }
+
+  return userVans
+}
+
+// Getting One user van
+export async function getHostVan(userId, id) {
   try {
-    const vans = await getVans()
-    const userVans = vans.filter((item) => item.hostId === id)
-    if (userVans.length === 0) {
-      throw new Error("You have no vans in your list")
+    const vans = await getHostVans(userId)
+    if (vans.length > 0) {
+      const singleVan = vans.find((van) => van.id === id)
+      return singleVan
     }
-    return userVans
   } catch (error) {
     throw new Error(error)
   }
 }
 
-export async function getHostVan() {}
+export async function postVan(hostId, data) {
+  if (hostId) {
+    const { description, imageUrl, name, price, type } = data
+
+    if (!imageUrl) {
+      console.error("Invalid image URL:", imageUrl)
+      throw new Error("Invalid image or image not selected")
+    }
+
+    if (!description || !name || !price || !type) {
+      throw new Error("Please fill in all fields")
+    }
+
+    const imageRef = ref(storage, `vans/${hostId}/${imageUrl.name}`)
+
+    try {
+      await uploadBytes(imageRef, imageUrl)
+      const imageDownloadURL = await getDownloadURL(imageRef)
+      await addDoc(collection(db, "vans"), {
+        name,
+        description,
+        imageUrl: imageDownloadURL,
+        price,
+        type,
+        hostId,
+      })
+
+      console.log("Van added to Firestore successfully.")
+    } catch (error) {
+      throw new Error("new err =>", error)
+    }
+  }
+}

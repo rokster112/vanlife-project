@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom"
 
-export default function VanSinglePhotos() {
+export default function HostPhotos() {
   const { van } = useOutletContext()
 
   return (

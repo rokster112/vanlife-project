@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom"
 
-export default function VanSinglePricing() {
+export default function HostPricing() {
   const { van } = useOutletContext()
   return (
     <p className="pricing-p">

@@ -8,9 +8,15 @@ export default function Navbar() {
     color: "black",
   }
 
+  // const user = JSON.parse(localStorage.getItem("user"))
+
+  const [renderBtn, setRenderBtn] = React.useState(false)
+
   function logout() {
     localStorage.removeItem("user")
+    setRenderBtn(false)
   }
+
   return (
     <nav className="nav">
       <ul className="nav-list">
@@ -53,13 +59,18 @@ export default function Navbar() {
           >
             Login
           </NavLink>
+          {/* {renderBtn && ( */}
           <NavLink
             style={({ isActive }) => (isActive ? activeStyle : null)}
-            className="nav-link"
+            className="nav-link logout-btn"
             to={"login"}
+            onClick={() => {
+              logout()
+            }}
           >
-            <button onClick={logout}>X</button>
+            Logout
           </NavLink>
+          {/* )} */}
         </div>
       </ul>
     </nav>
