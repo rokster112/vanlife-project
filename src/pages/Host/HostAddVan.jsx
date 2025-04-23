@@ -40,6 +40,7 @@ export default function HostAddVan() {
   return (
     <div className="add-van__body">
       {error && <h3 className="error">{error.message}</h3>}
+      <h1>Add a new van!</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <select
           required

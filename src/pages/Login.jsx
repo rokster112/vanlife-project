@@ -17,8 +17,6 @@ export default function Login() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  console.log("use location", location)
-
   function handleSubmit(e) {
     e.preventDefault()
     setStatus("submitting")

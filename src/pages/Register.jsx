@@ -17,7 +17,7 @@ export default function Register() {
       try {
         const data = await createUser(formData.email, formData.password)
         console.log("User created!", data.email)
-        navigate("/login")
+        navigate("/login", { replace: true })
       } catch (error) {
         setErr(error)
         console.error(error.message)
@@ -37,6 +37,7 @@ export default function Register() {
             className="register-input"
             type="email"
             name="email"
+            placeholder="example@email.com"
             onChange={(e) => handleChange(e, setFormData, setErr)}
           />
         </label>
@@ -46,6 +47,7 @@ export default function Register() {
             className="register-input"
             type="password"
             name="password"
+            placeholder="current-password"
             onChange={(e) => handleChange(e, setFormData, setErr)}
           />
         </label>

@@ -1,3 +1,7 @@
 export default function Reviews() {
-  return <p>Reviews</p>
+  return (
+    <div className="reviews-body">
+      <p>Reviews - Work in progress</p>
+    </div>
+  )
 }
