@@ -611,6 +611,14 @@ div.login-body form button {
   font-weight: 700;
 }
 
+a.login-link,
+a.register-link {
+  text-decoration: none;
+  margin-left: 5px;
+  color: #ff8c38;
+  font-weight: 700;
+}
+
 /* error style */
 h3.error {
   color: red;

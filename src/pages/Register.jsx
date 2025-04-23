@@ -1,7 +1,7 @@
 import React from "react"
 import { handleChange } from "./helpers/HandleChange"
 import { createUser } from "../api"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Register() {
   const [formData, setFormData] = React.useState({
@@ -53,6 +53,12 @@ export default function Register() {
         </label>
         <button type="submit">Register</button>
       </form>
+      <p className="register-p">
+        Already have an account?
+        <Link to={"/login"} className="register-link">
+          Log in now
+        </Link>
+      </p>
     </div>
   )
 }

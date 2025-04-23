@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import React from "react"
-import { replace, useLocation, useNavigate } from "react-router-dom"
+import { Link, replace, useLocation, useNavigate } from "react-router-dom"
 import { handleChange } from "./helpers/HandleChange"
 import { loginUser } from "../api"
 
@@ -87,6 +87,12 @@ export default function Login() {
           {status === "submitting" ? "Logging in..." : "Log in"}
         </button>
       </form>
+      <p className="login-p">
+        Don’t have an account?
+        <Link to={"/register"} className="login-link">
+          Create one now
+        </Link>
+      </p>
     </div>
   )
 }
