@@ -29,18 +29,21 @@ export default function Register() {
   return (
     <div className="register-body">
       {err && <h3 className="error">{err.message}</h3>}
+      <h1>Register a new account</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label>
+        <label className="register-label">
           Email:
           <input
+            className="register-input"
             type="email"
             name="email"
             onChange={(e) => handleChange(e, setFormData, setErr)}
           />
         </label>
-        <label>
+        <label className="register-label">
           Password:
           <input
+            className="register-input"
             type="password"
             name="password"
             onChange={(e) => handleChange(e, setFormData, setErr)}

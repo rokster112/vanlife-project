@@ -59,9 +59,10 @@ export default function Login() {
         </h3>
       )}
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="email">
+        <label className="login-label">
           Email:
           <input
+            className="login-input"
             id="email"
             name="email"
             type="email"
@@ -69,9 +70,10 @@ export default function Login() {
             onChange={(e) => handleChange(e, setFormData, setError)}
           />
         </label>
-        <label htmlFor="password">
+        <label className="login-label">
           Password:
           <input
+            className="login-input"
             id="password"
             name="password"
             type="password"

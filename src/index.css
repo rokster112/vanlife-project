@@ -378,7 +378,7 @@ nav.host-nav {
   align-items: center;
 }
 
-/* VansHost */
+/* HostAllVans */
 
 div.host-van__site-wrapper {
   background-color: #fff7ed;
@@ -428,7 +428,7 @@ div.host-vans__details > p {
   font-size: clamp(1rem, 0.5rem + 1vw, 1.2rem);
 }
 
-/* VanSingle styles */
+/* HostVanInfo styles */
 nav.host-van__single-nav {
   padding-block: 7px 27px;
   background-color: white;
@@ -486,15 +486,28 @@ div.van-single__top-details > p {
   img.van-single__image {
     width: 35%;
   }
+
+  div.add-van__body form,
+  div.register-body form,
+  div.login-body form {
+    width: 63% !important;
+  }
 }
 
 @media (max-width: 560px) {
   div.van-card {
     width: 100%;
   }
+
+  div.add-van__body form,
+  div.register-body form,
+  div.login-body form {
+    width: 85% !important;
+    padding: 15px !important;
+  }
 }
 
-/* VanSingleDetails styles */
+/* HostDetails styles */
 
 div.details-list {
   padding-inline: 24px;
@@ -514,7 +527,7 @@ span.details-span {
   font-weight: 700;
 }
 
-/* VanSinglePricing */
+/* HostPricing */
 p.pricing-p {
   padding: 45px 0 47px 24px;
   background: white;
@@ -574,14 +587,17 @@ div.login-body {
   align-items: center;
   justify-content: center;
   flex: 1;
-  background-color: #fff7ed;
+  background: linear-gradient(180deg, rgb(255 247 237), rgb(255 231 56));
 }
 
-div.login-body form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+div.login-body form > * {
+  margin-bottom: 15px;
+}
+
+div.login-body form button {
+  background-color: #262626;
+  color: white;
+  font-weight: 700;
 }
 
 /* error style */
@@ -617,14 +633,39 @@ div.register-body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   flex: 1;
-  background-color: #fff7ed;
+  background: linear-gradient(180deg, rgb(255 247 237), #ffcc8d);
 }
 
-div.register-body form {
+div.register-body form,
+div.login-body form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 480px;
+  padding: 30px 50px;
+}
+
+div.register-body form > * {
+  margin-bottom: 15px;
+}
+
+label.register-label,
+label.login-label {
+  width: 100%;
+}
+
+input.register-input,
+input.login-input {
+  width: 100%;
+  height: 35px;
+}
+
+div.register-body form button {
+  background-color: #262626;
+  color: white;
+  font-weight: 700;
 }
 
 /* HostAddVan styles */
@@ -636,10 +677,52 @@ div.add-van__body {
   align-items: center;
   flex: 1;
   background-color: #fff7ed;
+  z-index: 1;
 }
 
 div.add-van__body form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 480px;
+  padding: 30px 50px;
+  border: 5px solid #f2dcc1;
+  border-radius: 4px;
+}
+
+select {
+  align-self: start;
+}
+
+div.add-van__body form > * {
+  margin-bottom: 15px;
+}
+
+label.add-van__label {
+  width: 100%;
+}
+
+input.add-van__input {
+  width: 100%;
+  height: 35px;
+}
+textarea.add-van__input {
+  width: 100%;
+  height: 100px;
+  resize: vertical;
+}
+
+form button {
+  width: 50%;
+  height: 35px;
+  background: #f2dcc1;
+  color: black;
+  font-weight: 700;
+  border-radius: 4px;
+  border: none;
+}
+
+form button:hover {
+  background-color: #daab72;
+  cursor: pointer;
 }

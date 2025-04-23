@@ -41,6 +41,25 @@ export default function HostAddVan() {
     <div className="add-van__body">
       {error && <h3 className="error">{error.message}</h3>}
       <form onSubmit={(e) => handleSubmit(e)}>
+        <select
+          required
+          value={formData.type}
+          name="type"
+          onChange={(e) => handleChange(e, setFormData, setError)}
+        >
+          <option className="select-option" value={""} disabled>
+            --Please select a type--
+          </option>
+          <option className="select-option" value={"rugged"}>
+            Rugged
+          </option>
+          <option className="select-option" value={"simple"}>
+            Simple
+          </option>
+          <option className="select-option" value={"luxury"}>
+            Luxury
+          </option>
+        </select>
         <label className="add-van__label">
           Name:
           <input
@@ -71,25 +90,6 @@ export default function HostAddVan() {
             onChange={(e) => handleChange(e, setFormData, setError)}
           />
         </label>
-        <select
-          required
-          value={formData.type} // Controlled value
-          name="type"
-          onChange={(e) => handleChange(e, setFormData, setError)}
-        >
-          <option className="select-option" value={""} disabled>
-            --Please select a type--
-          </option>
-          <option className="select-option" value={"rugged"}>
-            Rugged
-          </option>
-          <option className="select-option" value={"simple"}>
-            Simple
-          </option>
-          <option className="select-option" value={"luxury"}>
-            Luxury
-          </option>
-        </select>
         <label className="add-van__label">
           Image:
           <input

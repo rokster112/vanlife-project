@@ -37,22 +37,24 @@ export default function VansDetail() {
           <img className="van-arrow" src={Arrow} alt="arrow pointing left" />
           Back to {type ? type : "all"} vans
         </Link>
-        <div className="van-image__container">
-          <img
-            className="van-image"
-            src={van.imageUrl}
-            alt={`Van with a name of ${van.name}`}
-          />
+        <div>
+          <div className="van-image__container">
+            <img
+              className="van-image"
+              src={van.imageUrl}
+              alt={`Van with a name of ${van.name}`}
+            />
+          </div>
+          <p className={`van-card__type ${van.type}`}>
+            {van.type[0].toUpperCase() + van.type.slice(1, van.type.length)}
+          </p>
+          <h1>{van.name}</h1>
+          <p className="van-price">
+            <span className="van-span">${van.price}</span>/day
+          </p>
+          <p>{van.description}</p>
+          <button>Rent this van</button>
         </div>
-        <p className={`van-card__type ${van.type}`}>
-          {van.type[0].toUpperCase() + van.type.slice(1, van.type.length)}
-        </p>
-        <h1>{van.name}</h1>
-        <p className="van-price">
-          <span className="van-span">${van.price}</span>/day
-        </p>
-        <p>{van.description}</p>
-        <button>Rent this van</button>
       </div>
     )
   )
