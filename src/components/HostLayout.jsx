@@ -28,7 +28,7 @@ export default function HostLayout() {
       }
     }
     fetchData()
-  }, [typeOfList])
+  }, [typeOfList, user.id])
 
   return (
     <>
