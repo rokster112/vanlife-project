@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, useLocation, useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { getVans } from "../../api"
 
 export default function Vans() {
@@ -8,7 +8,6 @@ export default function Vans() {
   const [loading, setLoading] = React.useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const typeFilter = searchParams.get("type")
-  const location = useLocation()
 
   React.useEffect(() => {
     async function fetchData() {
