@@ -1,6 +1,12 @@
+import React from "react"
 import { NavLink, Outlet } from "react-router-dom"
+import { getHostVans } from "../api"
 
 export default function HostLayout() {
+  const [vans, setVans] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
+  const [err, setErr] = React.useState(null)
+  const [typeOfList, setTypeOfList] = React.useState("listed")
   const activeStyle = {
     fontWeight: "bold",
     textDecoration: "underline",
@@ -8,6 +14,21 @@ export default function HostLayout() {
   }
 
   const user = JSON.parse(localStorage.getItem("user"))
+  React.useEffect(() => {
+    async function fetchData() {
+      setLoading(true)
+      try {
+        const data = await getHostVans(user?.id, typeOfList)
+        setVans(data)
+        setErr(null)
+      } catch (error) {
+        setErr(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData()
+  }, [typeOfList])
 
   return (
     <>
@@ -54,7 +75,15 @@ export default function HostLayout() {
           Add Van
         </NavLink>
       </nav>
-      <Outlet />
+      <Outlet
+        context={{
+          vans,
+          loading,
+          err,
+          typeOfList,
+          setTypeOfList,
+        }}
+      />
     </>
   )
 }

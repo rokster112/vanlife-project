@@ -22,7 +22,11 @@ export default function HostVanInfo() {
     async function fetchData() {
       setLoading(true)
       try {
-        const data = await getHostVan(location.state?.userId, id)
+        const data = await getHostVan(
+          location.state?.userId,
+          id,
+          location.state?.typeOfList,
+        )
         setVan(data)
       } catch (error) {
         setErr(error)
@@ -37,7 +41,7 @@ export default function HostVanInfo() {
 
   if (err) return <h1>There has been an error: {err.message}</h1>
 
-  return Object.keys(van).length ? (
+  return Object.keys(van).length > 0 ? (
     <>
       <div className="van-single__body">
         <Link

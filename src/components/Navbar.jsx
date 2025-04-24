@@ -13,7 +13,8 @@ export default function Navbar() {
   const activeStyle = {
     fontWeight: "bold",
     textDecoration: "underline",
-    color: "black",
+    color: renderBtn ? "white" : "black",
+    background: renderBtn && "black",
   }
 
   function getUser() {
@@ -60,7 +61,7 @@ export default function Navbar() {
         </a>
       ) : null}
       <ul className={renderBtn ? menu : "nav-list"}>
-        <div className={renderBtn && menu}>
+        <div className={renderBtn ? menu : ""}>
           <NavLink
             style={({ isActive }) => (isActive ? activeStyle : null)}
             className="nav-link"
@@ -79,6 +80,7 @@ export default function Navbar() {
             style={({ isActive }) => (isActive ? activeStyle : null)}
             className="nav-link"
             to={"vans"}
+            // state={{ userId: user.id }}
           >
             Vans
           </NavLink>

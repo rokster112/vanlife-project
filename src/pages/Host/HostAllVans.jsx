@@ -1,29 +1,23 @@
 /* eslint-disable */
 
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useOutletContext } from "react-router-dom"
 import React from "react"
 import { getHosts, getHostVans } from "../../api"
 
 export default function HostAllVans() {
-  const [vans, setVans] = React.useState([])
-  const [loading, setLoading] = React.useState(false)
-  const [err, setErr] = React.useState(null)
   const location = useLocation()
+  const { vans, loading, err, typeOfList, setTypeOfList } = useOutletContext()
 
-  React.useEffect(() => {
-    async function fetchData() {
-      setLoading(true)
-      try {
-        const data = await getHostVans(location.state?.userId)
-        setVans(data)
-      } catch (error) {
-        setErr(error)
-      } finally {
-        setLoading(false)
+  const listBtn = (
+    <button
+      className="host-vans__btn"
+      onClick={() =>
+        setTypeOfList((prev) => (prev === "listed" ? "rented" : "listed"))
       }
-    }
-    fetchData()
-  }, [])
+    >
+      {typeOfList === "listed" ? "Rented Vans" : "Listed Vans"}
+    </button>
+  )
 
   const displayVans =
     vans.length > 0 &&
@@ -32,7 +26,7 @@ export default function HostAllVans() {
         className="host-vans__link"
         key={van.id}
         to={`${van.id}`}
-        state={{ userId: location.state?.userId }}
+        state={{ userId: location.state?.userId, typeOfList: typeOfList }}
       >
         <img
           className="host-vans__image"
@@ -56,21 +50,31 @@ export default function HostAllVans() {
             ? err.message
             : `There has been an error:  ${err?.message}`}
         </h1>
-        <h3>Would you like to add more vans?</h3>
+        <h3>
+          {typeOfList === "listed"
+            ? "Would you like to add more vans?"
+            : "You are not renting any vans"}
+        </h3>
         <Link
           className="error-btn"
-          to={"/host/add"}
+          to={typeOfList === "listed" ? "/host/add" : "/vans"}
           state={{ userId: location.state?.userId }}
         >
-          Add
+          {typeOfList === "listed" ? "Add" : "Browse vans"}
         </Link>
+        {typeOfList === "rented" ? <p>Or go back to your listed vans</p> : null}
+        {typeOfList === "rented" ? listBtn : null}
       </div>
     )
 
   return (
     <div className="host-vans__container">
-      <h1>Your listed vans</h1>
-      {displayVans || <h1>No vans available</h1>}
+      {listBtn}
+      <h1>
+        {typeOfList === "rented" ? "Your rented vans" : "Your listed vans"}
+      </h1>
+
+      {displayVans || "No vans to display"}
     </div>
   )
 }

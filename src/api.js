@@ -16,6 +16,7 @@ import {
   where,
   setDoc,
   addDoc,
+  updateDoc,
 } from "firebase/firestore"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 
@@ -82,10 +83,31 @@ export async function getVan(id) {
   return { ...snapshot.data(), id: snapshot.id }
 }
 
+// Renting a van
+export async function rentVan(id, userId) {
+  if (userId) {
+    const docRef = doc(db, "vans", id)
+    const snapshot = await getDoc(docRef)
+    const vanData = snapshot.data()
+    await updateDoc(docRef, {
+      rented: vanData.rented && vanData.rented === userId ? "" : userId,
+    })
+  } else {
+    throw new Error(
+      "User credentials not found. Please make sure you're logged in.",
+    )
+  }
+}
 // Getting All host vans
-export async function getHostVans(id) {
+export async function getHostVans(id, typeOfList) {
   const vans = await getVans()
-  const userVans = vans.filter((item) => item.hostId === id)
+  const userVans = vans.filter((item) =>
+    typeOfList && typeOfList === "listed"
+      ? item.hostId === id
+      : typeOfList && typeOfList === "rented"
+        ? item.rented === id
+        : item.hostId === id,
+  )
 
   if (userVans.length === 0) {
     throw new Error("You have no vans in your list")
@@ -95,9 +117,9 @@ export async function getHostVans(id) {
 }
 
 // Getting One user van
-export async function getHostVan(userId, id) {
+export async function getHostVan(userId, id, typeOfList) {
   try {
-    const vans = await getHostVans(userId)
+    const vans = await getHostVans(userId, typeOfList)
     if (vans.length > 0) {
       const singleVan = vans.find((van) => van.id === id)
       return singleVan
@@ -132,6 +154,7 @@ export async function postVan(hostId, data) {
         price,
         type,
         hostId,
+        rented: "",
       })
 
       console.log("Van added to Firestore successfully.")

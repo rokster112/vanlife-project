@@ -22,6 +22,15 @@ div#root {
   background-color: #fff7ed;
 }
 
+.redirecting {
+  flex: 1;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff7ed;
+}
+
 /*Navbar styles*/
 
 nav.nav {
@@ -275,6 +284,7 @@ div.van-card__image-container img {
   border-radius: 5px;
   height: 100%;
   width: 100%;
+  aspect-ratio: 16 / 16;
 }
 
 div.van-card__info {
@@ -397,6 +407,17 @@ div.host-vans__container {
   flex: 1;
 }
 
+button.host-vans__btn {
+  background-color: #ff8c38;
+  height: 35px;
+  width: 120px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
 div.host-vans__container > h1 {
   margin-bottom: 32px;
 }
@@ -419,6 +440,7 @@ img.host-vans__image {
   margin: 18px 24px;
   border-radius: 6px;
   box-sizing: border-box;
+  aspect-ratio: 15 / 16;
 }
 
 div.host-vans__details > h4 {
@@ -623,6 +645,10 @@ a.register-link {
 h3.error {
   color: red;
   font-weight: bold;
+}
+
+div.van h3.error {
+  text-align: center;
 }
 
 div.error-host__vans {
