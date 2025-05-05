@@ -1,12 +1,18 @@
 import React from "react"
 import { NavLink, Outlet } from "react-router-dom"
 import { getHostVans } from "../api"
+import { CalcIncome } from "../pages/helpers/CalcIncome"
+import { CalcReviews } from "../pages/helpers/CalcReviews"
 
 export default function HostLayout() {
   const [vans, setVans] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [err, setErr] = React.useState(null)
   const [typeOfList, setTypeOfList] = React.useState("listed")
+  const [dashboardSummary, setDashboardSummary] = React.useState({
+    income: 0,
+    rating: {},
+  })
   const activeStyle = {
     fontWeight: "bold",
     textDecoration: "underline",
@@ -21,6 +27,12 @@ export default function HostLayout() {
         const data = await getHostVans(user?.id, typeOfList)
         setVans(data)
         setErr(null)
+        const income = CalcIncome(data)
+        const reviewStats = CalcReviews(data)
+        setDashboardSummary({
+          rating: reviewStats,
+          income: income,
+        })
       } catch (error) {
         setErr(error)
       } finally {
@@ -82,6 +94,7 @@ export default function HostLayout() {
           err,
           typeOfList,
           setTypeOfList,
+          dashboardSummary,
         }}
       />
     </>

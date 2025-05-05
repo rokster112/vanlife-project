@@ -1,13 +1,18 @@
+/* eslint-disable */
+
 import React from "react"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import Arrow from "../../images/Arrow 1.png"
 import { getVan, rentVan } from "../../api"
+import Reviews from "../../components/Reviews"
 
 export default function VansDetail() {
   const [van, setVan] = React.useState({})
   const [loading, setLoading] = React.useState(false)
   const [redirecting, setRedirecting] = React.useState(false)
   const [err, setErr] = React.useState(null)
+  const [refreshKey, setRefreshKey] = React.useState(0)
+
   const navigate = useNavigate()
   const { id } = useParams()
   const location = useLocation()
@@ -44,8 +49,8 @@ export default function VansDetail() {
       }
     }
     fetchData()
-  }, [id])
-  console.log(van)
+  }, [refreshKey])
+
   function handleRent() {
     async function rent() {
       try {
@@ -68,6 +73,7 @@ export default function VansDetail() {
     }
     rent()
   }
+
   if (redirecting)
     return (
       <h1 className="redirecting">You are being redirected, please wait...</h1>
@@ -75,7 +81,6 @@ export default function VansDetail() {
 
   if (loading) return <h1 className="loading">Loading...</h1>
 
-  // if (err) return <h1>There has been an error: {err.message}</h1>
   return (
     Object.keys(van).length > 0 && (
       <div className="van">
@@ -121,6 +126,13 @@ export default function VansDetail() {
             </h3>
           )}
         </div>
+        <Reviews
+          van={van}
+          userId={user?.id}
+          id={id}
+          userEmail={user?.email}
+          setRefreshKey={setRefreshKey}
+        />
       </div>
     )
   )

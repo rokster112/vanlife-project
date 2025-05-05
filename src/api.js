@@ -17,6 +17,10 @@ import {
   setDoc,
   addDoc,
   updateDoc,
+  serverTimestamp,
+  FieldValue,
+  arrayUnion,
+  deleteDoc,
 } from "firebase/firestore"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 
@@ -41,12 +45,9 @@ export async function loginUser(email, password) {
   try {
     const user = await signInWithEmailAndPassword(auth, email, password)
     const foundUser = await getDoc(doc(db, "users", user.user.uid))
-    if (!foundUser.exists()) {
-      throw new Error("User does not exist, check your credentials or register")
-    }
     return foundUser.data()
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error("User does not exist, check your credentials or register")
   }
 }
 
@@ -129,6 +130,7 @@ export async function getHostVan(userId, id, typeOfList) {
   }
 }
 
+// Post Van
 export async function postVan(hostId, data) {
   if (hostId) {
     const { description, imageUrl, name, price, type } = data
@@ -155,11 +157,58 @@ export async function postVan(hostId, data) {
         type,
         hostId,
         rented: "",
+        reviews: [],
       })
 
       console.log("Van added to Firestore successfully.")
     } catch (error) {
       throw new Error("new err =>", error)
     }
+  }
+}
+
+// Post review
+export async function postReview(formData, id, userId, userEmail) {
+  const { text, rating } = formData
+  try {
+    const docRef = doc(db, "vans", id)
+    const van = await getVan(id)
+    if (!text || !rating) {
+      throw new Error("All fields must be filled in")
+    }
+
+    if (van.rented !== userId) {
+      throw new Error("You need to be renting this van to submit a review")
+    }
+    const review = {
+      date: new Date().toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      text,
+      rating: Number(rating),
+      by: userEmail,
+      userId: userId,
+    }
+
+    await updateDoc(docRef, {
+      reviews: arrayUnion(review),
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function deleteReview(id, userId) {
+  try {
+    const docRef = doc(db, "vans", id)
+    const van = await getVan(id)
+    const filteredReviews = van.reviews.filter((item) => item.userId !== userId)
+    await updateDoc(docRef, { reviews: filteredReviews })
+  } catch (error) {
+    console.error(error)
   }
 }

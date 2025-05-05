@@ -7,7 +7,7 @@ export default function AuthRequired() {
       <Navigate
         to={"/login"}
         replace
-        state={{ message: "You must be looged in" }}
+        state={{ message: "You must be logged in" }}
       />
     )
   }

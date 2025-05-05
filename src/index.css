@@ -416,6 +416,7 @@ button.host-vans__btn {
   border-radius: 6px;
   font-weight: 900;
   cursor: pointer;
+  align-self: flex-start;
 }
 
 div.host-vans__container > h1 {
@@ -657,6 +658,7 @@ div.error-host__vans {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-inline: 27px;
 }
 
 a.error-btn {
@@ -723,12 +725,37 @@ div.dashboard-body {
 div.income-body {
   flex: 1;
   background-color: #fff7ed;
+  padding-inline: 27px;
 }
 
 /* Reviews */
-div.reviews-body {
+div.host-reviews {
   flex: 1;
   background-color: #fff7ed;
+  padding-inline: 27px;
+}
+
+div.host-reviews__average {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+div.reviews-breakdown__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+div.host-reviews__breakdown {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+p.reviews-stars {
+  width: 85px;
 }
 
 /* HostAddVan styles */
@@ -847,4 +874,74 @@ form button:hover {
 
 .closed {
   display: none;
+}
+
+/* Reviews */
+.reviews-average {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  gap: 10px;
+  align-items: center;
+}
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background-color: #ffcc8d;
+  border-radius: 6px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.reviews-top {
+  display: flex;
+  gap: 20px;
+}
+
+p.review-date,
+p.review-by {
+  font-size: 12px;
+  padding-block: 5px;
+  margin: 0;
+  color: #8c8b8b;
+}
+
+p.review-text {
+  margin: 10px 0 10px 0;
+}
+
+button.review-delete {
+  height: 25px;
+  width: 65px;
+  background: #ff8c38;
+  border: none;
+  font-weight: 900;
+  color: white;
+  cursor: pointer;
+}
+
+button.review-delete:hover {
+  background-color: #e17654;
+}
+
+.review-form__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-form__container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.star-container {
+  margin-block: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.star {
+  margin-right: 5px;
 }

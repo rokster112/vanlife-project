@@ -44,18 +44,14 @@ export default function Login() {
     }
     getUser()
   }
-
+  console.log("Error =>", error)
   return (
     <div className="login-body">
       {location.state?.message && (
         <h3 className="error">{location.state.message}</h3>
       )}
       <h1>Sign in to your account</h1>
-      {error && (
-        <h3 className="error">
-          {error.message + ": User " + error.statusText}
-        </h3>
-      )}
+      {error && <h3 className="error">{error.message}</h3>}
       <form onSubmit={(e) => handleSubmit(e)}>
         <label className="login-label">
           Email:

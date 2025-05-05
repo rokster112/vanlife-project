@@ -2,7 +2,6 @@
 
 import { Link, useLocation, useOutletContext } from "react-router-dom"
 import React from "react"
-import { getHosts, getHostVans } from "../../api"
 
 export default function HostAllVans() {
   const location = useLocation()
@@ -45,6 +44,7 @@ export default function HostAllVans() {
   if (err)
     return (
       <div className="error-host__vans">
+        {listBtn}
         <h1>
           {err.message === "You have no vans in your list"
             ? err.message
@@ -63,7 +63,6 @@ export default function HostAllVans() {
           {typeOfList === "listed" ? "Add" : "Browse vans"}
         </Link>
         {typeOfList === "rented" ? <p>Or go back to your listed vans</p> : null}
-        {typeOfList === "rented" ? listBtn : null}
       </div>
     )
 

@@ -4,12 +4,15 @@ import React from "react"
 import { NavLink, Link, Outlet, useParams, useLocation } from "react-router-dom"
 import Arrow from "../../images/Arrow 1.png"
 import { getHostVan } from "../../api"
+import Reviews from "../../components/Reviews"
 
 export default function HostVanInfo() {
   const [loading, setLoading] = React.useState(false)
   const [van, setVan] = React.useState([])
   const [err, setErr] = React.useState(null)
+  const [refreshKey, setRefreshKey] = React.useState(0)
   const { id } = useParams()
+  const user = JSON.parse(localStorage.getItem("user"))
   const location = useLocation()
 
   const activeStyle = {
@@ -35,7 +38,7 @@ export default function HostVanInfo() {
       }
     }
     fetchData()
-  }, [])
+  }, [refreshKey])
 
   if (loading) return <h1 className="loading">Loading...</h1>
 
@@ -95,6 +98,13 @@ export default function HostVanInfo() {
           </NavLink>
         </nav>
         <Outlet context={{ van }} />
+        <Reviews
+          van={van}
+          userId={user.id}
+          id={id}
+          userEmail={user.email}
+          setRefreshKey={setRefreshKey}
+        />
       </div>
     </>
   ) : (
