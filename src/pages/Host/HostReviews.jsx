@@ -4,7 +4,9 @@ import { FaStar } from "react-icons/fa"
 import React from "react"
 
 export default function HostReviews() {
-  const { vans, dashboardSummary } = useOutletContext()
+  const { vans, dashboardSummary, err } = useOutletContext()
+
+  if (err) return <h3 className="error-msg">You have no reviews</h3>
 
   if (vans.length === 0) return <h1 className="loading">Loading...</h1>
 

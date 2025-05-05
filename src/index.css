@@ -423,7 +423,7 @@ div.host-vans__container > h1 {
   margin-bottom: 32px;
 }
 
-a.host-vans__link {
+.host-vans__link {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -432,7 +432,7 @@ a.host-vans__link {
   text-decoration: none;
 }
 
-a.host-vans__link:last-child {
+.host-vans__link:last-child {
   margin-bottom: 66px;
 }
 
@@ -498,11 +498,17 @@ div.van-single__top-details > p {
   div.van-card {
     width: 85%;
   }
+  .dashboard-vans__card img {
+    width: 18% !important;
+  }
 }
 
 @media (max-width: 768px) {
   div.van-card {
     width: 90%;
+  }
+  .dashboard-vans__card img {
+    width: 23% !important;
   }
 
   img.host-vans__image {
@@ -523,6 +529,10 @@ div.van-single__top-details > p {
 @media (max-width: 560px) {
   div.van-card {
     width: 100%;
+  }
+
+  .dashboard-vans__card img {
+    width: 28% !important;
   }
 
   div.add-van__body form,
@@ -652,6 +662,14 @@ div.van h3.error {
   text-align: center;
 }
 
+.error-msg {
+  flex: 1;
+  background-color: #fff7ed;
+  margin: 0;
+  padding-inline: 27px;
+  font-size: 26px;
+}
+
 div.error-host__vans {
   flex: 1;
   background-color: #fff7ed;
@@ -721,6 +739,69 @@ div.dashboard-body {
   background-color: #fff7ed;
 }
 
+div.dashboard-income {
+  background: #ffead0;
+  padding-inline: 27px;
+}
+
+.dashboard-income > h1:first-of-type {
+  margin: 0;
+  padding-block: 32px 16px;
+}
+
+.dashboard-income > h1:last-of-type {
+  margin: 0;
+  padding-block: 16px 32px;
+}
+
+div.dashboard-review {
+  background: #ffddb2;
+  padding-inline: 27px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+div.dashboard-review > h2 {
+  margin: 0;
+  padding-block: 40px;
+  margin-right: 12px;
+}
+
+div.dashboard-review span {
+  font-weight: 400;
+}
+
+.dashboard-vans {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 27px;
+}
+
+.dashboard-vans__card {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  margin-block: 10px;
+}
+
+.dashboard-vans__card img {
+  width: 13%;
+  padding: 18px;
+  border-radius: 15px;
+}
+
+button.dashboard-vans__btn {
+  width: 80px;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  font-weight: 800;
+  cursor: pointer;
+  align-self: end;
+  padding-block: 20px;
+  font-size: 16px;
+}
 /* Income styles */
 div.income-body {
   flex: 1;
